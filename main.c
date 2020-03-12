@@ -1,70 +1,88 @@
-#include <unistd.h>
-#include <dirent.h>
+/*
+
+#include <gtk/gtk.h>
+#include "vector.h"
+
+static void
+print_hello (GtkWidget *widget,
+             gpointer   data)
+{
+    g_print ("Hello World\n");
+}
+
+static void
+activate (GtkApplication *app,
+          gpointer        user_data)
+{
+    GtkWidget *window;
+    GtkWidget *button;
+    GtkWidget *button_box;
+
+    window = gtk_application_window_new (app);
+    gtk_window_set_title (GTK_WINDOW (window), "Window");
+    gtk_window_set_default_size (GTK_WINDOW (window), 200, 200);
+
+    button_box = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);
+    gtk_container_add (GTK_CONTAINER (window), button_box);
+
+    button = gtk_button_new_with_label ("Hello World");
+    g_signal_connect (button, "clicked", G_CALLBACK (print_hello), NULL);
+    g_signal_connect_swapped (button, "clicked", G_CALLBACK (gtk_widget_destroy), window);
+    gtk_container_add (GTK_CONTAINER (button_box), button);
+
+    gtk_widget_show_all (window);
+}
+
+int
+main (int    argc,
+      char **argv)
+{
+    vec_t v;
+    vector_push_back(&v, 5);
+    vector_push_back(&v, 500);
+    vector_push_back(&v, 1);
+    vector_push_back(&v, 3);
+    vector_push_back(&v, 4);
+    vector_push_back(&v, 5);
+    vector_push_back(&v, 6);
+    vector_push_back(&v, 7);
+    vector_push_back(&v, 8);
+    vector_push_back(&v, 9);
+    vector_push_back(&v, 10);
+    vector_push_back(&v, 11);
+    vector_push_back(&v, 12);
+    vector_push_back(&v, 13);
+
+    vector_resize(&v, 5);
+
+    for (int i = 0; i < v.vec_size; ++i) {
+        printf("%i\n",v.t[i]);
+    }
+
+    GtkApplication *app;
+    int status;
+
+    app = gtk_application_new ("org.gtk.example", G_APPLICATION_FLAGS_NONE);
+    g_signal_connect (app, "activate", G_CALLBACK (activate), NULL);
+    status = g_application_run (G_APPLICATION (app), argc, argv);
+    g_object_unref (app);
+
+    return status;
+}*/
+
+#include "FileTree.h"
 #include <stdio.h>
-#include <stdbool.h>
-#include <string.h>
-#include <sys/stat.h>
-#include <stdlib.h>
 
 const int mx_char = 255;
 
-bool traverse(char *dir_in, int *level);
-long file_size(char *in_file);
 
 int main(int argc, char **argv) {
 
-    char in[] = ".";
-    traverse(in, 0);
+    FileTree X;
+    FileTree_init(&X,"/");
+    FileTree_calculateSizes(&X);
+    printf("%lli", X.root->size);
+    FileTree_destruct(&X);
 
     return 0;
-}
-
-bool traverse (char *dir_in, int *level) {
-    DIR *dir;
-    struct dirent *cur;
-
-    dir = opendir(dir_in);
-
-    if (dir == NULL) {
-        printf("Error: not a directory\n");
-        return false;
-    }
-
-    char *cur_root;
-    strcat(dir_in, "/");
-    cur_root = realloc(NULL, sizeof(char)*strlen(dir_in));
-    strcpy(cur_root, dir_in);
-
-//    dir_in = strncat(dir_in, temp, strlen(dir_in)+strlen(temp));
-
-    while ((cur = readdir(dir))){
-        printf("%s\n", cur->d_name);
-        if (strcmp(cur->d_name, ".") == 0 || strcmp(cur->d_name, "..") == 0){
-            continue;
-        }
-        strcpy(dir_in, cur_root);
-        strcat(dir_in, cur->d_name);
-        switch (cur->d_type) {
-            case DT_REG: printf("file: %s size: %d\n", dir_in, file_size(dir_in));//cur_level.terminate(cur_path, file_size(cur_path)));
-                break;
-            case DT_DIR: traverse(dir_in, 0/*cur_level.next_level()*/);
-                break;
-            default: printf("Error: unexpected file");
-        }
-    }
-
-    closedir(dir);
-
-    return true;
-}
-
-//long file_size(char *in_file) {
-//
-//}
-
-long file_size(char *in_file) {
-//    FILE *file = fopen(in_file, "r");
-    struct stat f_info;
-    stat(in_file, &f_info);
-    return f_info.st_size;
 }

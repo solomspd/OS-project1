@@ -1,13 +1,21 @@
-cmake_minimum_required(VERSION 3.15)
-project(project1)
+cmake_minimum_required(VERSION 3.10)
+project(OS_project1 C)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_C_STANDARD 11)
 
 FIND_PACKAGE(PkgConfig REQUIRED)
 PKG_CHECK_MODULES(GTK3 REQUIRED gtk+-3.0)
 INCLUDE_DIRECTORIES(${GTK3_INCLUDE_DIRS})
 LINK_DIRECTORIES(${GTK3_LIBRARY_DIRS})
 ADD_DEFINITIONS(${GTK3_CFLAGS_OTHER})
-add_executable(project1 main.c)
+include_directories(.)
 
-TARGET_LINK_LIBRARIES(project1 ${GTK3_LIBRARIES})
+add_executable(OS_project1
+        FileNode.c
+        FileNode.h
+        FileTree.c
+        FileTree.h
+        main.c
+        utilities.c
+        utilities.h
+        vector.h)
