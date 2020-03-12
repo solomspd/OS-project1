@@ -99,7 +99,7 @@ bool FileNode_traverse(FileNode *FN, const char *path) {
             strcat(newPath, cur->d_name);
             switch (cur->d_type) {
                 case DT_REG:
-                    printf("file: %s size: %lli\n", newPath, get_file_size(newPath));//cur_level.terminate(cur_path, file_size(cur_path)));
+                    //printf("file: %s size: %lli\n", newPath, get_file_size(newPath));//cur_level.terminate(cur_path, file_size(cur_path)));
                     X.size = get_file_size(newPath);
                     FileNode_addChild(FN, &X);
                     break;
@@ -107,7 +107,7 @@ bool FileNode_traverse(FileNode *FN, const char *path) {
                     FileNode_traverse(FileNode_addChild(FN, &X), newPath);
                     break;
                 default:
-                    printf("Error: unexpected file");
+                    printf("Error: unexpected file\n");
             }
             free(newPath);
         }

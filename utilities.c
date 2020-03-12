@@ -6,8 +6,6 @@
 #include <stdio.h>
 #include <sys/stat.h>
 
-//TODO: Can't access or read privileged files.
-
 long long get_file_size(const char *filename)
 {
 /*    FILE *p_file = NULL;
