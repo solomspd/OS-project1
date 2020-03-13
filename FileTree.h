@@ -15,7 +15,7 @@ typedef struct FileTree {
 } FileTree;
 
 void FileTree_init(FileTree *tree, char* root_path);
-void FileTree_calculateSizes(FileTree* tree);
+//void FileTree_calculateSizes(FileTree* tree);
 void FileTree_destruct(FileTree *tree);
 bool FileTree_scan(FileTree* tree);
 

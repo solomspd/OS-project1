@@ -23,7 +23,7 @@ FileNode * FileNode_addChild(FileNode *parent, FileNode *child);
 void FileNode_setParent(FileNode* parent, FileNode* child);
 bool FileNode_isFile(FileNode *FN);
 void FileNode_destruct(FileNode* FN);
-long long int FileNode_calcSize(FileNode *FN);
+//long long int FileNode_calcSize(FileNode *FN);
 bool FileNode_traverse(FileNode* FN, const char* path);
 
 #endif //PROJECT1_FILENODE_H
