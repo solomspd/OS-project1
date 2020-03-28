@@ -51,20 +51,6 @@ void FileNode_destruct(FileNode *FN) {
     free(FN->filename);
 }
 
-/*long long int FileNode_calcSize(FileNode *FN) {
-    if(FileNode_isFile(FN)){
-        return FN->size;
-    } else {
-        long long int size = 0;
-
-        for (int i = 0; i < FN->children->vec_size; ++i) {
-            size += FileNode_calcSize(&FN->children->t[i]);
-        }
-        FN->size = size;
-        return size;
-    }
-}*/
-
 bool FileNode_traverse(FileNode *FN, const char *path) {
     char* dir_in = calloc(strlen(path)+1+1, sizeof(char));
     strcpy(dir_in, path);
@@ -83,9 +69,6 @@ bool FileNode_traverse(FileNode *FN, const char *path) {
     cur_root = calloc(strlen(dir_in)+1+1, sizeof(char));
     strcpy(cur_root, dir_in);
 
-
-//    dir_in = strncat(dir_in, temp, strlen(dir_in)+strlen(temp));
-
     while ((cur = readdir(dir))){
         if (strcmp(cur->d_name, ".") == 0 || strcmp(cur->d_name, "..") == 0){
             continue;
@@ -97,7 +80,6 @@ bool FileNode_traverse(FileNode *FN, const char *path) {
             strcat(newPath, cur->d_name);
             switch (cur->d_type) {
                 case DT_REG:
-                    //printf("file: %s size: %lli\n", newPath, get_file_size(newPath));//cur_level.terminate(cur_path, file_size(cur_path)));
                     X.size = get_file_size(newPath);
                     FileNode_addChild(FN, &X);
                     break;
