@@ -1,14 +1,9 @@
 cmake_minimum_required(VERSION 3.10)
-project(OS_project1 C)
+project(OS_project1)
 
-set(CMAKE_C_STANDARD 11)
+find_package(Qt5Widgets REQUIRED)
 
-FIND_PACKAGE(PkgConfig REQUIRED)
-PKG_CHECK_MODULES(GTKMM gtkmm)
-INCLUDE_DIRECTORIES(${GTKMM_INCLUDE_DIRS})
-LINK_DIRECTORIES(${GTKMM_LIBRARY_DIRS})
-ADD_DEFINITIONS(${GTKMM_CFLAGS_OTHER})
-include_directories(.)
+set(CMAKE_CXX_STANDARD 17)
 
 add_executable(OS_project1
         src/FileNode.c
@@ -19,3 +14,5 @@ add_executable(OS_project1
         src/utilities.c
         src/utilities.h
         src/vector.h)
+
+target_link_libraries(OS_project1 Qt5::Widgets)
