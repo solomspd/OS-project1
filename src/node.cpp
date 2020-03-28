@@ -31,6 +31,14 @@ bool node::traverse(node *cur_node) {
 
 	cur_dir = opendir(cur_node->dir.c_str());
 
+	if (cur_dir == NULL) {
+		return true;
+	}
+
+	if (cur_node->dir.back() == '/') {
+		cur_node->dir.pop_back();
+	}
+
 	unsigned long long tot_sz = 0;
 
 	if(cur_dir) {

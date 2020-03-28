@@ -24,7 +24,7 @@
 
     \section{Core Technology}
     \subsection{File Access}
-    To access files we used the stat structure that is part of the \mintinline{c}{sys} library provided by the linux kernel Which is also based on he POSIX standard.
+    To access files we used the filesystem library using the tellg() function.
     This allows us access to the files size. This should should be disk usage without holes. Our program recursively traverses the file system from the predefined root directory, keeping track of the size of each file and it's parent directory.
 
     \subsection{File Tree}
@@ -32,6 +32,9 @@
     If a node does not have any children then it is a file and will be dealt with accordingly. Used modern C++ vectors to avoid certain type conflicts between C code and QT code.
 
     \section{User Interface}
-    For the graphical user interface we used the QT library.
+	For the graphical user interface we used the QT library. The user interface is a pichart where you can click on each slice of the chart and explore the 1 level below it.
+	
+	\section{Usage}
+	OS-project1 <directory>
 
 \end{document}

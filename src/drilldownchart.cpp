@@ -57,6 +57,7 @@ void DrilldownChart::changeSeries(QAbstractSeries *series)
 void DrilldownChart::handleSliceClicked(QPieSlice *slice)
 {
     DrilldownSlice *drilldownSlice = static_cast<DrilldownSlice *>(slice);
+
     changeSeries(drilldownSlice->drilldownSeries());
 }
 
