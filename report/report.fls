@@ -1,0 +1,24 @@
+PWD /data/Abdo/Abdo/Abdo's University work/spring 2020/Operating Systems/project1/report
+INPUT /usr/share/texmf-dist/web2c/texmf.cnf
+INPUT /var/lib/texmf/web2c/xetex/xelatex.fmt
+INPUT /data/Abdo/Abdo/Abdo's University work/spring 2020/Operating Systems/project1/report/report.tex
+OUTPUT /data/Abdo/Abdo/Abdo's University work/spring 2020/Operating Systems/project1/report/report.log
+INPUT /usr/share/texmf-dist/tex/latex/base/article.cls
+INPUT /usr/share/texmf-dist/tex/latex/base/article.cls
+INPUT /usr/share/texmf-dist/tex/latex/base/size10.clo
+INPUT /usr/share/texmf-dist/tex/latex/base/size10.clo
+INPUT /data/Abdo/Abdo/Abdo's University work/spring 2020/Operating Systems/project1/report/report.aux
+INPUT /data/Abdo/Abdo/Abdo's University work/spring 2020/Operating Systems/project1/report/report.aux
+OUTPUT /data/Abdo/Abdo/Abdo's University work/spring 2020/Operating Systems/project1/report/report.aux
+INPUT /usr/share/texmf-dist/fonts/map/fontname/texfonts.map
+INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
+INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmr8.tfm
+INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmr6.tfm
+INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmmi12.tfm
+INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmmi8.tfm
+INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmmi6.tfm
+INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
+INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm
+INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm
+OUTPUT /data/Abdo/Abdo/Abdo's University work/spring 2020/Operating Systems/project1/report/report.xdv
+INPUT /data/Abdo/Abdo/Abdo's University work/spring 2020/Operating Systems/project1/report/report.aux
