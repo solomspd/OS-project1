@@ -43,12 +43,12 @@ bool node::traverse(node *cur_node) {
 			case DT_REG: {
 					unsigned long long cur_sz = fsize(cur_node->dir+'/'+cur->d_name);
 					tot_sz += cur_sz;
-					cur_node->new_cild(cur_node->dir+'/'+cur->d_name, cur_node)->terminate(cur_sz);
+					cur_node->new_cild(cur_node->dir+'/'+cur->d_name, cur->d_name, cur_node)->terminate(cur_sz);
 				break;
 			}
 			case DT_DIR: {
 				std::string new_dir = cur_node->dir + '/' + cur->d_name;
-				traverse(cur_node->new_cild(new_dir, cur_node));
+				traverse(cur_node->new_cild(new_dir, cur->d_name, cur_node));
 				break;
 			}
 		}
@@ -60,10 +60,11 @@ bool node::traverse(node *cur_node) {
 	return false;
 }
 
-node *node::new_cild(std::string name, node *in_parent) {
+node *node::new_cild(std::string name, std::string fname, node *in_parent) {
 	node *new_node = new node;
 	new_node->dir = name;
 	new_node->parent = in_parent;
+	new_node->name = fname;
 	child.push_back(new_node);
 	return new_node;
 }
