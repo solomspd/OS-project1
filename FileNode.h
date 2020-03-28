@@ -15,7 +15,6 @@
 #include <sys/stat.h>
 #include <stdlib.h>
 
-typedef struct FileNode FileNode;
 class FileNode {
 public:
     std::string filename;
