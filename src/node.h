@@ -9,18 +9,18 @@
 #include <vector>
 
 class node {
-private:
+public:
 	unsigned long long size;
 	std::string name;
 	std::string dir;
-	std::vector<node*> child;
+	std::vector<node*> children;
 	node *parent;
 public:
 	node();
 	node (std::string in);
 	~node();
 	bool traverse(node *cur_node);
-	node *new_cild(std::string name, node *in_parent);
+	node *new_cild(std::string name, std::string fname, node *in_parent);
 	bool terminate(unsigned long long sz);
 };
 
