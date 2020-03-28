@@ -69,15 +69,15 @@ int main(int argc, char *argv[])
 		sizes << X.children[j]->size;
 
 
-	foreach (node* childNode, childrenNodes) {
-		QPieSeries *series = new QPieSeries(&window);
-		series->setName(QT_STRINGIFY(childNode.name + " as a directory"));
-		*series << new DrilldownSlice(childNode->children.size(), childNode->name.c_str(), mySeries, childNode, chart, &window);
+			foreach (node* childNode, childrenNodes) {
+			QPieSeries *series = new QPieSeries(&window);
+			series->setName(QT_STRINGIFY(childNode.name + " as a directory"));
+			*series << new DrilldownSlice(childNode->size, childNode->name.c_str(), mySeries, childNode, chart, &window);
 
-		QObject::connect(series, SIGNAL(clicked(QPieSlice*)), chart, SLOT(handleSliceClicked(QPieSlice*)));
+			QObject::connect(series, SIGNAL(clicked(QPieSlice*)), chart, SLOT(handleSliceClicked(QPieSlice*)));
 
-		*mySeries << new DrilldownSlice(series->sum(), childNode->name.c_str(), series, childNode, chart, &window);
-	}
+			*mySeries << new DrilldownSlice(series->sum(), childNode->name.c_str(), series, childNode, chart, &window);
+		}
 
 	QObject::connect(mySeries, SIGNAL(clicked(QPieSlice*)), chart, SLOT(handleSliceClicked(QPieSlice*)));
 

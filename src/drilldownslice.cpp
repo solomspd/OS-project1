@@ -49,12 +49,13 @@ DrilldownSlice::~DrilldownSlice() {
 }
 
 QAbstractSeries *DrilldownSlice::drilldownSeries() {
+    if(n->children.empty()) return m_drilldownSeries;
     QPieSeries* mySeries = static_cast<QPieSeries *>(m_drilldownSeries);
     mySeries->clear();
             foreach (node *childNode, n->children) {
             QPieSeries *series = new QPieSeries(w);
             series->setName(QT_STRINGIFY(childNode.name + " as a directory"));
-            *series << new DrilldownSlice(childNode->children.size(), childNode->name.c_str(), mySeries,
+            *series << new DrilldownSlice(childNode->size, childNode->name.c_str(), mySeries,
                                           childNode, chart, w);
 
             QObject::connect(series, SIGNAL(clicked(QPieSlice * )), chart, SLOT(handleSliceClicked(QPieSlice * )));
@@ -68,7 +69,7 @@ void DrilldownSlice::updateLabel() {
     QString label = m_prefix;
     label += ", ";
     label += QString::number(this->value());
-    label += ", ";
+    label += "B, ";
     label += QString::number(this->percentage() * 100, 'f', 1);
     label += "%";
     setLabel(label);
