@@ -10,10 +10,10 @@
 #include "node.h"
 
 unsigned long long fsize(const std::string& dir) {
-	std::ifstream in(dir, std::ifstream::ate | std::ifstream::binary);
-	unsigned long long ret = in.tellg();
-	in.close();
-	return ret;
+    std::ifstream in(dir, std::ifstream::ate | std::ifstream::binary);
+    unsigned long long ret = in.tellg();
+    in.close();
+    return ret;
 }
 
 node::node() {
@@ -27,53 +27,48 @@ node::~node() {
 	}
 }
 
+
 bool node::traverse(node *cur_node) {
-	DIR *cur_dir;
-	struct dirent *cur;
+    DIR *cur_dir;
+    struct dirent *cur;
 
-	cur_dir = opendir(cur_node->dir.c_str());
+    cur_dir = opendir(cur_node->dir.c_str());
 
-	if (cur_dir == NULL) {
-		return true;
-	}
+    if (cur_dir == NULL) {
+        return true;
+    }
 
-	if (cur_node->dir.back() == '/') {
-		cur_node->dir.pop_back();
-	}
+    if (cur_node->dir.back() == '/') {
+        cur_node->dir.pop_back();
+    }
 
-	unsigned long long tot_sz = 0;
-		while ((cur = readdir(cur_dir))) {
-			std::string cur_sub = cur->d_name;
-			if (cur_sub == "." || cur_sub == ".." || cur_sub == "proc") {
-				continue;
-			}
-	while ((cur = readdir(cur_dir))) {
-		std::string cur_sub = cur->d_name;
-		if (cur_sub == "." || cur_sub == ".." || cur_sub == "proc" || cur_sub == "data") {
-			continue;
-		}
+    unsigned long long tot_sz = 0;
 
-			switch (cur->d_type) {
-				case DT_REG: {
-					unsigned long long cur_sz = fsize(cur_node->dir + '/' + cur->d_name);
-					tot_sz += cur_sz;
-					cur_node->new_cild(cur_node->dir + '/' + cur->d_name, cur->d_name, cur_node)->terminate(cur_sz);
-					break;
-				}
-				case DT_DIR: {
-					std::string new_dir = cur_node->dir + '/' + cur->d_name;
-					traverse(cur_node->new_cild(new_dir, cur->d_name, cur_node));
-					break;
-				}
-			}
-		}
-		closedir(cur_dir);
-	}
+    while ((cur = readdir(cur_dir))) {
+        std::string cur_sub = cur->d_name;
+        if (cur_sub == "." || cur_sub == ".." || cur_sub == "proc") {
+            if (cur_sub == "." || cur_sub == ".." || cur_sub == "proc" || cur_sub == "data") {
+                continue;
+            }
 
-	cur_node->size = tot_sz;
-
-	return false;
-}
+            switch (cur->d_type) {
+                case DT_REG: {
+                    unsigned long long cur_sz = fsize(cur_node->dir+'/'+cur->d_name);
+                    tot_sz += cur_sz;
+                    cur_node->new_cild(cur_node->dir+'/'+cur->d_name, cur->d_name, cur_node)->terminate(cur_sz);
+                    break;
+                }
+                case DT_DIR: {
+                    std::string new_dir = cur_node->dir + '/' + cur->d_name;
+                    traverse(cur_node->new_cild(new_dir, cur->d_name, cur_node));
+                    break;
+                }
+            }
+        }
+        closedir(cur_dir);
+        cur_node->size = tot_sz;
+        return false;
+    }
 
 node *node::new_cild(std::string name, std::string fname, node *in_parent) {
 	node *new_node = new node;
