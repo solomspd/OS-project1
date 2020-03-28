@@ -45,7 +45,8 @@ QT_CHARTS_USE_NAMESPACE
 
 int main(int argc, char *argv[])
 {
-	node X("..");
+	std::string in = argc == 2 ? argv[1] : "/";
+	node X(in);
 	X.traverse(&X);
 
 	QApplication a(argc, argv);

@@ -7,9 +7,74 @@ INPUT /usr/share/texmf-dist/tex/latex/base/article.cls
 INPUT /usr/share/texmf-dist/tex/latex/base/article.cls
 INPUT /usr/share/texmf-dist/tex/latex/base/size10.clo
 INPUT /usr/share/texmf-dist/tex/latex/base/size10.clo
+INPUT /usr/share/texmf-dist/tex/latex/minted/minted.sty
+INPUT /usr/share/texmf-dist/tex/latex/minted/minted.sty
+INPUT /usr/share/texmf-dist/tex/latex/graphics/keyval.sty
+INPUT /usr/share/texmf-dist/tex/latex/graphics/keyval.sty
+INPUT /usr/share/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+INPUT /usr/share/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+INPUT /usr/share/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+INPUT /usr/share/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+INPUT /usr/share/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+INPUT /usr/share/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+INPUT /usr/share/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+INPUT /usr/share/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+INPUT /usr/share/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+INPUT /usr/share/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+INPUT /usr/share/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+INPUT /usr/share/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+INPUT /usr/share/texmf-dist/tex/latex/fvextra/fvextra.sty
+INPUT /usr/share/texmf-dist/tex/latex/fvextra/fvextra.sty
+INPUT /usr/share/texmf-dist/tex/latex/base/ifthen.sty
+INPUT /usr/share/texmf-dist/tex/latex/base/ifthen.sty
+INPUT /usr/share/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+INPUT /usr/share/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+INPUT /usr/share/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
+INPUT /usr/share/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
+INPUT /usr/share/texmf-dist/tex/latex/upquote/upquote.sty
+INPUT /usr/share/texmf-dist/tex/latex/upquote/upquote.sty
+INPUT /usr/share/texmf-dist/tex/latex/base/textcomp.sty
+INPUT /usr/share/texmf-dist/tex/latex/base/textcomp.sty
+INPUT /usr/share/texmf-dist/tex/latex/base/ts1enc.def
+INPUT /usr/share/texmf-dist/tex/latex/base/ts1enc.def
+INPUT /usr/share/texmf-dist/tex/latex/lineno/lineno.sty
+INPUT /usr/share/texmf-dist/tex/latex/lineno/lineno.sty
+INPUT /usr/share/texmf-dist/tex/latex/tools/calc.sty
+INPUT /usr/share/texmf-dist/tex/latex/tools/calc.sty
+INPUT /usr/share/texmf-dist/tex/latex/tools/shellesc.sty
+INPUT /usr/share/texmf-dist/tex/latex/tools/shellesc.sty
+INPUT /usr/share/texmf-dist/tex/latex/tools/shellesc.sty
+INPUT /usr/share/texmf-dist/tex/latex/ifplatform/ifplatform.sty
+INPUT /usr/share/texmf-dist/tex/latex/ifplatform/ifplatform.sty
+INPUT /usr/share/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+INPUT /usr/share/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+INPUT /usr/share/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+INPUT /usr/share/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+INPUT /usr/share/texmf-dist/tex/generic/oberdiek/catchfile.sty
+INPUT /usr/share/texmf-dist/tex/generic/oberdiek/catchfile.sty
+INPUT /dev/null
+INPUT /data/Abdo/Abdo/Abdo's University work/spring 2020/Operating Systems/project1/report/report.w18
+INPUT /data/Abdo/Abdo/Abdo's University work/spring 2020/Operating Systems/project1/report/report.w18
+INPUT /usr/share/texmf-dist/tex/generic/xstring/xstring.sty
+INPUT /usr/share/texmf-dist/tex/generic/xstring/xstring.sty
+INPUT /usr/share/texmf-dist/tex/generic/xstring/xstring.tex
+INPUT /usr/share/texmf-dist/tex/latex/framed/framed.sty
+INPUT /usr/share/texmf-dist/tex/latex/framed/framed.sty
+INPUT /usr/share/texmf-dist/tex/latex/float/float.sty
+INPUT /usr/share/texmf-dist/tex/latex/float/float.sty
+INPUT /usr/share/texmf-dist/tex/latex/xcolor/xcolor.sty
+INPUT /usr/share/texmf-dist/tex/latex/xcolor/xcolor.sty
+INPUT /usr/share/texmf-dist/tex/latex/graphics-cfg/color.cfg
+INPUT /usr/share/texmf-dist/tex/latex/graphics-cfg/color.cfg
+INPUT /usr/share/texmf-dist/tex/latex/graphics-def/xetex.def
+INPUT /usr/share/texmf-dist/tex/latex/graphics-def/xetex.def
+INPUT /data/Abdo/Abdo/Abdo's University work/spring 2020/Operating Systems/project1/report/report.aex
+INPUT /data/Abdo/Abdo/Abdo's University work/spring 2020/Operating Systems/project1/report/report.aex
 INPUT /data/Abdo/Abdo/Abdo's University work/spring 2020/Operating Systems/project1/report/report.aux
 INPUT /data/Abdo/Abdo/Abdo's University work/spring 2020/Operating Systems/project1/report/report.aux
 OUTPUT /data/Abdo/Abdo/Abdo's University work/spring 2020/Operating Systems/project1/report/report.aux
+INPUT /usr/share/texmf-dist/tex/latex/base/ts1cmr.fd
+INPUT /usr/share/texmf-dist/tex/latex/base/ts1cmr.fd
 INPUT /usr/share/texmf-dist/fonts/map/fontname/texfonts.map
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmr8.tfm
