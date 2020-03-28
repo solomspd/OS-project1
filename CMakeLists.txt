@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
-project(OS_project1 C)
+project(OS_project1)
 
-set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD 20)
 
 FIND_PACKAGE(PkgConfig REQUIRED)
 PKG_CHECK_MODULES(GTKMM gtkmm)
@@ -10,12 +10,4 @@ LINK_DIRECTORIES(${GTKMM_LIBRARY_DIRS})
 ADD_DEFINITIONS(${GTKMM_CFLAGS_OTHER})
 include_directories(.)
 
-add_executable(OS_project1
-        src/FileNode.c
-        src/FileNode.h
-        src/FileTree.c
-        src/FileTree.h
-        src/main.c
-        src/utilities.c
-        src/utilities.h
-        src/vector.h)
+add_executable(OS_project1 src/main.cpp src/node.cpp src/node.h)

@@ -2,14 +2,36 @@
 
 \author{Abdelsalam ELTamawy\\Yusuf Sherif\\Youssef Ragai\\Mohamed Awadly}
 \title{Operating Systems Project 1\\Disk analyzer tool}
+\usepackage{minted}
 
 \begin{document}
 
-    \maketitle
+    \begin{titlepage}
+
+        \maketitle
+    \end{titlepage}
 
     \section{Introduction}
     We set out to create a utility that can help a user to view how files on their systems are taking up space and to be able to make more informed decisions regarding their storage options.
-    
+    It is designed to run on any Linux based operating systems.
 
+    \section{Dependencies}
+    \begin{itemize}
+        \item QT. For the graphical user interface
+        \item cmake. For building the Project
+        \item base-devel(arch based) or build-essentials(debian based). For GCC compiler used for building.
+    \end{itemize}
+
+    \section{Core Technology}
+    \subsection{File Access}
+    To access files we used the stat structure that is part of the \mintinline{c}{sys} library provided by the linux kernel Which is also based on he POSIX standard.
+    This allows us access to the files size. This should should be disk usage without holes. Our program recursively traverses the file system from the predefined root directory, keeping track of the size of each file and it's parent directory.
+
+    \subsection{File Tree}
+    We used a dynamically allocated linked list to create the tree that will be populated by the file sizes. It relies on a system of nodes that point to each other to create a tree. Each note is a directory or a file and all its children are it's contents.
+    If a node does not have any children then it is a file and will be dealt with accordingly. Used modern C++ vectors to avoid certain type conflicts between C code and QT code.
+
+    \section{User Interface}
+    For the graphical user interface we used the QT library.
 
 \end{document}
