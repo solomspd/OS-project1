@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
 	qsrand(QTime(0, 0, 0).secsTo(QTime::currentTime()));
 	QMainWindow window;
 	QPieSeries *mySeries = new QPieSeries(&window);
-//	mySeries->setName("Disk Analyzer - Root");
+	mySeries->setName("Disk Analyzer - Root");
 
 	DrilldownChart *chart = new DrilldownChart();
 	chart->setTheme(QChart::ChartThemeLight);
@@ -72,7 +72,7 @@ int main(int argc, char *argv[])
 
 			foreach (node* childNode, childrenNodes) {
 			QPieSeries *series = new QPieSeries(&window);
-//			series->setName(QT_STRINGIFY(childNode.name + " as a directory"));
+			series->setName(QString(childNode->name.c_str()) + " as a directory");
 			*series << new DrilldownSlice(childNode->size, childNode->name.c_str(), mySeries, childNode, chart, &window);
 
 			QObject::connect(series, SIGNAL(clicked(QPieSlice*)), chart, SLOT(handleSliceClicked(QPieSlice*)));
