@@ -14,10 +14,8 @@ int main(int argc, char *argv[]) {
 	Gtk::Window window;
 	window.set_default_size(200, 200);
 
-	node *start = new node(".");
+	node *start = new node("/");
 	start->traverse(start);
-
-
 
 	return app->run(window);
 }
