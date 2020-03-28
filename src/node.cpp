@@ -11,7 +11,9 @@
 
 unsigned long long fsize(const std::string& dir) {
 	std::ifstream in(dir, std::ifstream::ate | std::ifstream::binary);
-	return in.tellg();
+	unsigned long long ret = in.tellg();
+	in.close();
+	return ret;
 }
 
 node::node() {
@@ -31,14 +33,25 @@ bool node::traverse(node *cur_node) {
 
 	cur_dir = opendir(cur_node->dir.c_str());
 
-	unsigned long long tot_sz = 0;
+	if (cur_dir == NULL) {
+		return true;
+	}
 
-	if(cur_dir) {
+	if (cur_node->dir.back() == '/') {
+		cur_node->dir.pop_back();
+	}
+
+	unsigned long long tot_sz = 0;
 		while ((cur = readdir(cur_dir))) {
 			std::string cur_sub = cur->d_name;
 			if (cur_sub == "." || cur_sub == ".." || cur_sub == "proc") {
 				continue;
 			}
+	while ((cur = readdir(cur_dir))) {
+		std::string cur_sub = cur->d_name;
+		if (cur_sub == "." || cur_sub == ".." || cur_sub == "proc" || cur_sub == "data") {
+			continue;
+		}
 
 			switch (cur->d_type) {
 				case DT_REG: {

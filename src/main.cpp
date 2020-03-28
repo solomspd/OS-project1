@@ -45,59 +45,58 @@ QT_CHARTS_USE_NAMESPACE
 
 
 
-int main(int argc, char *argv[])
-{
-	node X(".");
-	X.traverse(&X);
+int main(int argc, char *argv[]) {
+    node X(".");
+    X.traverse(&X);
 
 
-	QApplication a(argc, argv);
+    QApplication a(argc, argv);
 
-	qsrand(QTime(0, 0, 0).secsTo(QTime::currentTime()));
+    qsrand(QTime(0, 0, 0).secsTo(QTime::currentTime()));
 
-	QMainWindow window;
+    QMainWindow window;
 
-	DrilldownChart *chart = new DrilldownChart();
-	chart->setTheme(QChart::ChartThemeLight);
-	chart->setAnimationOptions(QChart::AllAnimations);
-	chart->legend()->setVisible(true);
-	chart->legend()->setAlignment(Qt::AlignRight);
+    DrilldownChart *chart = new DrilldownChart();
+    chart->setTheme(QChart::ChartThemeLight);
+    chart->setAnimationOptions(QChart::AllAnimations);
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignRight);
 
-	QPieSeries *yearSeries = new QPieSeries(&window);
-	yearSeries->setName("Disk Analyzer - Root");
+    QPieSeries *yearSeries = new QPieSeries(&window);
+    yearSeries->setName("Disk Analyzer - Root");
 
-	QList<QString> childrenNodes;
-	for (int i=0; i<X.children.size();i++)
-		childrenNodes << X.children[i]->name.c_str();
-	QList<long long int> sizes;
-	for (int j=0; j<X.children.size();j++)
-		sizes << X.children[j]->size;
+    QList<QString> childrenNodes;
+    for (int i = 0; i < X.children.size(); i++)
+        childrenNodes << X.children[i]->name.c_str();
+    QList<long long int> sizes;
+    for (int j = 0; j < X.children.size(); j++)
+        sizes << X.children[j]->size;
 
 
-	foreach (QString childNode, childrenNodes) {
-		QPieSeries *series = new QPieSeries(&window);
-		series->setName(childNode + " as a directory");
-		*series << new DrilldownSlice(childNode.size(), childNode, yearSeries);
+            foreach (QString childNode, childrenNodes) {
+            QPieSeries *series = new QPieSeries(&window);
+            series->setName(childNode + " as a directory");
+            *series << new DrilldownSlice(childNode.size(), childNode, yearSeries);
 
-		QObject::connect(series, SIGNAL(clicked(QPieSlice*)), chart, SLOT(handleSliceClicked(QPieSlice*)));
+            QObject::connect(series, SIGNAL(clicked(QPieSlice * )), chart, SLOT(handleSliceClicked(QPieSlice * )));
 
-		*yearSeries << new DrilldownSlice(series->sum(), childNode, series);
-	}
+            *yearSeries << new DrilldownSlice(series->sum(), childNode, series);
+        }
 
-	QObject::connect(yearSeries, SIGNAL(clicked(QPieSlice*)), chart, SLOT(handleSliceClicked(QPieSlice*)));
+    QObject::connect(yearSeries, SIGNAL(clicked(QPieSlice * )), chart, SLOT(handleSliceClicked(QPieSlice * )));
 
-	chart->changeSeries(yearSeries);
+    chart->changeSeries(yearSeries);
 /*
 	QPushButton *m_button = new QPushButton("&Download", &window);
 	DrilldownChart::connect(m_button, SIGNAL (released()), &window, SLOT (handleButton()));
 */
 
-	QChartView *chartView = new QChartView(chart);
-	chartView->setRenderHint(QPainter::Antialiasing);
-	window.setCentralWidget(chartView);
-	window.resize(800, 500);
+    QChartView *chartView = new QChartView(chart);
+    chartView->setRenderHint(QPainter::Antialiasing);
+    window.setCentralWidget(chartView);
+    window.resize(800, 500);
 
-	window.show();
-	return a.exec();
+    window.show();
+    return a.exec();
 
 }
