@@ -71,6 +71,7 @@ main (int    argc,
 }*/
 
 #include "FileTree.h"
+#include <iostream>
 
 const int mx_char = 255;
 
@@ -78,9 +79,12 @@ const int mx_char = 255;
 int main(int argc, char **argv) {
 
     FileTree X;
-    FileTree_init(&X,".");
+    FileTree_init(&X,"../../");
     //FileTree_calculateSizes(&X); Obsolete
-    printf("%lli", X.root->children.size());
+    printf("%lli\n", X.root->children.size());
+    for (int i = 0; i < X.root->children.size(); ++i) {
+        std::cout<< X.root->children[i].filename << std::endl;
+    }
     FileTree_destruct(&X);
 
     return 0;

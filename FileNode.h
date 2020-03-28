@@ -6,6 +6,8 @@
 #define PROJECT1_FILENODE_H
 
 #include <vector>
+#include <string>
+
 #include "utilities.h"
 #include <dirent.h>
 #include <string.h>
@@ -14,21 +16,18 @@
 #include <stdlib.h>
 
 typedef struct FileNode FileNode;
-struct FileNode {
-
-    char* filename;
-    std::vector<FileNode*> children;
+class FileNode {
+public:
+    std::string filename;
+    std::vector<FileNode> children;
     struct FileNode* parent;
     long long int size;
-
+    FileNode(char *name, FileNode *parent);
+    void addChild(const FileNode &child);
+    void setParent(FileNode* child);
+    bool isFile();
+    bool traverse(const char* path);
+    ~FileNode();
 };
-
-void FileNode_init(FileNode *FN, char *name, FileNode *parent);
-FileNode * FileNode_addChild(FileNode *parent, FileNode *child);
-void FileNode_setParent(FileNode* parent, FileNode* child);
-bool FileNode_isFile(FileNode *FN);
-void FileNode_destruct(FileNode* FN);
-//long long int FileNode_calcSize(FileNode *FN);
-bool FileNode_traverse(FileNode* FN, const char* path);
 
 #endif //PROJECT1_FILENODE_H
