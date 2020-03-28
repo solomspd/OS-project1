@@ -31,31 +31,42 @@
 
 QT_CHARTS_USE_NAMESPACE
 
-DrilldownSlice::DrilldownSlice(qreal value, QString prefix, QAbstractSeries *drilldownSeries)
-    : m_drilldownSeries(drilldownSeries),
-      m_prefix(prefix)
-{
+DrilldownSlice::DrilldownSlice(qreal value, QString prefix, QAbstractSeries *drilldownSeries, node *n, DrilldownChart *chart, QMainWindow* window)
+        : m_drilldownSeries(drilldownSeries),
+          m_prefix(prefix) {
     setValue(value);
     updateLabel();
     setLabelFont(QFont("Arial", 8));
     connect(this, SIGNAL(percentageChanged()), this, SLOT(updateLabel()));
     connect(this, SIGNAL(hovered(bool)), this, SLOT(showHighlight(bool)));
+    this->n = n;
+    this->w = window;
+    this->chart = chart;
 }
 
-DrilldownSlice::~DrilldownSlice()
-{
+DrilldownSlice::~DrilldownSlice() {
 
 }
 
-QAbstractSeries *DrilldownSlice::drilldownSeries() const
-{
+QAbstractSeries *DrilldownSlice::drilldownSeries() {
+    QPieSeries* mySeries = static_cast<QPieSeries *>(m_drilldownSeries);
+    mySeries->clear();
+            foreach (node *childNode, n->children) {
+            QPieSeries *series = new QPieSeries(w);
+            series->setName(QT_STRINGIFY(childNode.name + " as a directory"));
+            *series << new DrilldownSlice(childNode->children.size(), childNode->name.c_str(), mySeries,
+                                          childNode, chart, w);
+
+            QObject::connect(series, SIGNAL(clicked(QPieSlice * )), chart, SLOT(handleSliceClicked(QPieSlice * )));
+
+            (*mySeries) << new DrilldownSlice(series->sum(), childNode->name.c_str(), series, childNode, chart, w);
+        }
     return m_drilldownSeries;
 }
 
-void DrilldownSlice::updateLabel()
-{
+void DrilldownSlice::updateLabel() {
     QString label = m_prefix;
-    label += " $";
+    label += ", ";
     label += QString::number(this->value());
     label += ", ";
     label += QString::number(this->percentage() * 100, 'f', 1);
@@ -63,10 +74,13 @@ void DrilldownSlice::updateLabel()
     setLabel(label);
 }
 
-void DrilldownSlice::showHighlight(bool show)
-{
+void DrilldownSlice::showHighlight(bool show) {
     setLabelVisible(show);
     setExploded(show);
+}
+
+node *DrilldownSlice::getNode() {
+    return n;
 }
 
 #include "moc_drilldownslice.cpp"

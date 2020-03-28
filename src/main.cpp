@@ -33,7 +33,6 @@
 #include <QtCore/QTime>
 #include <QtCharts/QChartView>
 #include <QtCharts/QLegend>
-#include <QtCharts/QPieSeries>
 #include <stdio.h>
 #include <QtWidgets/QPushButton>
 
@@ -44,18 +43,17 @@
 QT_CHARTS_USE_NAMESPACE
 
 
-
 int main(int argc, char *argv[])
 {
-	node X(".");
+	node X("..");
 	X.traverse(&X);
-
 
 	QApplication a(argc, argv);
 
 	qsrand(QTime(0, 0, 0).secsTo(QTime::currentTime()));
-
 	QMainWindow window;
+	QPieSeries *mySeries = new QPieSeries(&window);
+	mySeries->setName("Disk Analyzer - Root");
 
 	DrilldownChart *chart = new DrilldownChart();
 	chart->setTheme(QChart::ChartThemeLight);
@@ -63,34 +61,33 @@ int main(int argc, char *argv[])
 	chart->legend()->setVisible(true);
 	chart->legend()->setAlignment(Qt::AlignRight);
 
-	QPieSeries *yearSeries = new QPieSeries(&window);
-	yearSeries->setName("Disk Analyzer - Root");
-
-	QList<QString> childrenNodes;
+	QList<node*> childrenNodes;
 	for (int i=0; i<X.children.size();i++)
-		childrenNodes << X.children[i]->name.c_str();
+		childrenNodes.push_back(X.children[i]);
 	QList<long long int> sizes;
 	for (int j=0; j<X.children.size();j++)
 		sizes << X.children[j]->size;
 
 
-	foreach (QString childNode, childrenNodes) {
+	foreach (node* childNode, childrenNodes) {
 		QPieSeries *series = new QPieSeries(&window);
-		series->setName(childNode + " as a directory");
-		*series << new DrilldownSlice(childNode.size(), childNode, yearSeries);
+		series->setName(QT_STRINGIFY(childNode.name + " as a directory"));
+		*series << new DrilldownSlice(childNode->children.size(), childNode->name.c_str(), mySeries, childNode, chart, &window);
 
 		QObject::connect(series, SIGNAL(clicked(QPieSlice*)), chart, SLOT(handleSliceClicked(QPieSlice*)));
 
-		*yearSeries << new DrilldownSlice(series->sum(), childNode, series);
+		*mySeries << new DrilldownSlice(series->sum(), childNode->name.c_str(), series, childNode, chart, &window);
 	}
 
-	QObject::connect(yearSeries, SIGNAL(clicked(QPieSlice*)), chart, SLOT(handleSliceClicked(QPieSlice*)));
+	QObject::connect(mySeries, SIGNAL(clicked(QPieSlice*)), chart, SLOT(handleSliceClicked(QPieSlice*)));
 
-	chart->changeSeries(yearSeries);
+	chart->changeSeries(mySeries);
+
 /*
 	QPushButton *m_button = new QPushButton("&Download", &window);
 	DrilldownChart::connect(m_button, SIGNAL (released()), &window, SLOT (handleButton()));
 */
+
 
 	QChartView *chartView = new QChartView(chart);
 	chartView->setRenderHint(QPainter::Antialiasing);

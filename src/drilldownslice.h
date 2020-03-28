@@ -30,6 +30,10 @@
 #define DRILLDOWNSLICE_H
 
 #include <QtCharts/QPieSlice>
+#include <QtCharts/QPieSeries>
+#include <QtWidgets/QMainWindow>
+#include "node.h"
+#include "drilldownchart.h"
 
 QT_CHARTS_BEGIN_NAMESPACE
 class QAbstractSeries;
@@ -42,17 +46,21 @@ class DrilldownSlice : public QPieSlice
     Q_OBJECT
 
 public:
-    DrilldownSlice(qreal value, QString prefix, QAbstractSeries *drilldownSeries);
+    DrilldownSlice(qreal value, QString prefix, QAbstractSeries *drilldownSeries, node* n, DrilldownChart *, QMainWindow*);
     virtual ~DrilldownSlice();
-    QAbstractSeries *drilldownSeries() const;
+    QAbstractSeries *drilldownSeries();
 
 public Q_SLOTS:
     void updateLabel();
     void showHighlight(bool show);
+    node* getNode();
 
 private:
     QAbstractSeries *m_drilldownSeries;
     QString m_prefix;
+    node* n;
+    QMainWindow* w;
+    DrilldownChart* chart;
 };
 
 #endif // DRILLDOWNSLICE_H
