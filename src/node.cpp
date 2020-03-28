@@ -31,6 +31,13 @@ bool node::traverse(node *cur_node) {
 
 	cur_dir = opendir(cur_node->dir.c_str());
 
+	if (cur_dir == NULL) {
+		return true;
+	}
+
+	if (cur_node->dir.back() == '/') {
+		cur_node->dir.pop_back();
+	}
 	unsigned long long tot_sz = 0;
 
 	if(cur_dir) {
@@ -49,7 +56,9 @@ bool node::traverse(node *cur_node) {
 				}
 				case DT_DIR: {
 					std::string new_dir = cur_node->dir + '/' + cur->d_name;
-					traverse(cur_node->new_cild(new_dir, cur->d_name, cur_node));
+					node *child = cur_node->new_cild(new_dir, cur->d_name, cur_node);
+					traverse(child);
+					tot_sz += child->size;
 					break;
 				}
 			}
@@ -60,6 +69,12 @@ bool node::traverse(node *cur_node) {
 	cur_node->size = tot_sz;
 
 	return false;
+}
+
+void set_sz(node *cur){
+	for (auto i : cur->children) {
+
+	}
 }
 
 node *node::new_cild(std::string name, std::string fname, node *in_parent) {

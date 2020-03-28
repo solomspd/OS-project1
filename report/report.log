@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Arch Linux) (preloaded format=xelatex 2020.3.18)  29 MAR 2020 00:36
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Arch Linux) (preloaded format=xelatex 2020.3.18)  29 MAR 2020 00:40
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -432,14 +432,20 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 11.
  [1
 
-] [1] (/data/Abdo/Abdo/Abdo's University work/spring 2020/Operating Systems/project1/report/report.aux) ) 
-Here is how much of TeX's memory you used:
- 4649 strings out of 492483
- 84141 string characters out of 6134979
- 200726 words of memory out of 5000000
- 9086 multiletter control sequences out of 15000+600000
- 6424 words of font info for 29 fonts, out of 8000000 for 9000
- 1348 hyphenation exceptions out of 8191
- 43i,6n,37p,908b,209s stack positions out of 5000i,500n,10000p,200000b,80000s
+]
+\openout4 = `report.pyg'.
 
-Output written on /data/Abdo/Abdo/Abdo's University work/spring 2020/Operating Systems/project1/report/report.xdv (2 pages, 17288 bytes).
+ (/data/Abdo/Abdo/Abdo's University work/spring 2020/Operating Systems/project1/report/_minted-report/default-pyg-prefix.pygstyle) (/data/Abdo/Abdo/Abdo's University work/spring 2020/Operating Systems/project1/report/_minted-report/default.pygstyle) (/data/Abdo/Abdo/Abdo's University work/spring 2020/Operating Systems/project1/report/_minted-report/C00E4930272C09A678FA549F50BAA8AEFB48802ABAF78951FDD6C9BB923B9B58.pygtex) [1] (/data/Abdo/Abdo/Abdo's University work/spring 2020/Operating Systems/project1/report/report.aux)
+runsystem(rm report.pyg)...executed.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 4867 strings out of 492483
+ 88069 string characters out of 6134979
+ 200726 words of memory out of 5000000
+ 9290 multiletter control sequences out of 15000+600000
+ 6432 words of font info for 30 fonts, out of 8000000 for 9000
+ 1348 hyphenation exceptions out of 8191
+ 43i,6n,37p,908b,262s stack positions out of 5000i,500n,10000p,200000b,80000s
+
+Output written on /data/Abdo/Abdo/Abdo's University work/spring 2020/Operating Systems/project1/report/report.xdv (2 pages, 18364 bytes).
