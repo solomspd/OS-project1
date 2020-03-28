@@ -7,9 +7,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-void FileTree_calculateSizes(FileTree *tree) {
+/*void FileTree_calculateSizes(FileTree *tree) {
     FileNode_calcSize(tree->root);
-}
+}*/
 
 void FileTree_init(FileTree *tree, char *root_path) {
     tree->root = calloc(1, sizeof(FileNode));
