@@ -3,8 +3,6 @@
 //
 
 #include "utilities.h"
-#include <stdio.h>
-#include <sys/stat.h>
 
 long long get_file_size(const char *filename)
 {

@@ -3,26 +3,14 @@
 //
 
 #include "FileNode.h"
-#include "vector.h"
-#include <string.h>
-#include "utilities.h"
-#include <unistd.h>
-#include <dirent.h>
-#include <stdio.h>
-#include <stdbool.h>
-#include <string.h>
-#include <sys/stat.h>
-#include <stdlib.h>
 
 void FileNode_init(FileNode *FN, char *name, FileNode *parent) {
-    FN->children = calloc(1, sizeof(vec_t));
     FN->parent=parent;
-    vector_init(FN->children);
     FN->size=0;
     size_t pNameSize = 0;
     if(FN->parent!=NULL)
         pNameSize = strlen(FN->parent->filename);
-    FN->filename = calloc(pNameSize+1+strlen(name)+1, sizeof(char));
+    FN->filename = (char*) calloc(pNameSize+1+strlen(name)+1, sizeof(char));
     if(FN->parent!=NULL) {
         strcpy(FN->filename, FN->parent->filename);
         strcat(FN->filename, "/");
@@ -34,7 +22,8 @@ void FileNode_init(FileNode *FN, char *name, FileNode *parent) {
 }
 
 FileNode * FileNode_addChild(FileNode *parent, FileNode *child) {
-    return vector_push_back(parent->children, *child);
+    parent->children.push_back(child);
+    return parent->children.back();
 }
 
 void FileNode_setParent(FileNode *parent, FileNode *child) {
@@ -42,12 +31,13 @@ void FileNode_setParent(FileNode *parent, FileNode *child) {
 }
 
 bool FileNode_isFile(FileNode *FN) {
-    return vector_empty(FN->children);
+    return (FN->children.empty());
 }
 
 void FileNode_destruct(FileNode *FN) {
-    vector_destruct(FN->children);
-    free(FN->children);
+    for (int i = 0; i < FN->children.size(); ++i) {
+        FileNode_destruct(FN->children[i]);
+    }
     free(FN->filename);
 }
 
@@ -66,7 +56,7 @@ void FileNode_destruct(FileNode *FN) {
 }*/
 
 bool FileNode_traverse(FileNode *FN, const char *path) {
-    char* dir_in = calloc(strlen(path)+1+1, sizeof(char));
+    char* dir_in = (char*) calloc(strlen(path)+1+1, sizeof(char));
     strcpy(dir_in, path);
     DIR *dir;
     struct dirent *cur;
@@ -80,7 +70,7 @@ bool FileNode_traverse(FileNode *FN, const char *path) {
 
     strcat(dir_in, "/");
     char *cur_root;
-    cur_root = calloc(strlen(dir_in)+1+1, sizeof(char));
+    cur_root = (char*)calloc(strlen(dir_in)+1+1, sizeof(char));
     strcpy(cur_root, dir_in);
 
 
@@ -90,19 +80,19 @@ bool FileNode_traverse(FileNode *FN, const char *path) {
         if (strcmp(cur->d_name, ".") == 0 || strcmp(cur->d_name, "..") == 0){
             continue;
         }else {
-            char* newPath = calloc(strlen(cur_root)+strlen(cur->d_name)+1, sizeof(char));
-            FileNode X;
-            FileNode_init(&X, cur->d_name, FN);
+            char* newPath = (char*) calloc(strlen(cur_root)+strlen(cur->d_name)+1, sizeof(char));
+            FileNode *X = (FileNode*) calloc(1, sizeof(FileNode));
+            FileNode_init(X, cur->d_name, FN);
             strcpy(newPath, cur_root);
             strcat(newPath, cur->d_name);
             switch (cur->d_type) {
                 case DT_REG:
                     //printf("file: %s size: %lli\n", newPath, get_file_size(newPath));//cur_level.terminate(cur_path, file_size(cur_path)));
-                    X.size = get_file_size(newPath);
-                    FileNode_addChild(FN, &X);
+                    X->size = get_file_size(newPath);
+                    FileNode_addChild(FN, X);
                     break;
                 case DT_DIR:
-                    FileNode_traverse(FileNode_addChild(FN, &X), newPath);
+                    FileNode_traverse(FileNode_addChild(FN, X), newPath);
                     break;
                 default:
                     printf("Error: unexpected file\n");
@@ -113,8 +103,8 @@ bool FileNode_traverse(FileNode *FN, const char *path) {
 
     long long int size = 0;
 
-    for (int i = 0; i < FN->children->vec_size; ++i) {
-        size += FN->children->t[i].size;
+    for (int i = 0; i < FN->children.size(); ++i) {
+        size += FN->children[i]->size;
     }
     FN->size = size;
 

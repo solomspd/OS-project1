@@ -5,14 +5,19 @@
 #ifndef PROJECT1_FILENODE_H
 #define PROJECT1_FILENODE_H
 
-#include <stdbool.h>
+#include <vector>
+#include "utilities.h"
+#include <dirent.h>
+#include <string.h>
+#include <stdio.h>
+#include <sys/stat.h>
+#include <stdlib.h>
 
-typedef struct vector vec_t;
 typedef struct FileNode FileNode;
 struct FileNode {
 
     char* filename;
-    vec_t* children;
+    std::vector<FileNode*> children;
     struct FileNode* parent;
     long long int size;
 

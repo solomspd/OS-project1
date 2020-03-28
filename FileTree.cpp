@@ -3,18 +3,16 @@
 //
 
 #include "FileTree.h"
-#include "utilities.h"
-#include <stdlib.h>
-#include <string.h>
+
 
 /*void FileTree_calculateSizes(FileTree *tree) {
     FileNode_calcSize(tree->root);
 }*/
 
 void FileTree_init(FileTree *tree, char *root_path) {
-    tree->root = calloc(1, sizeof(FileNode));
+    tree->root = (FileNode*)calloc(1, sizeof(FileNode));
     FileNode_init(tree->root, root_path, NULL);
-    tree->root_path = calloc(strlen(root_path)+1, sizeof(char));
+    tree->root_path = (char*)calloc(strlen(root_path)+1, sizeof(char));
     strcpy(tree->root_path, root_path);
     FileTree_scan(tree);
 }
