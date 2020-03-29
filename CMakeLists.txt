@@ -34,7 +34,7 @@ add_executable(OS-project1
         src/drilldownchart.h
         src/drilldownslice.cpp
         src/drilldownslice.h
-        src/backButton.cpp src/backButton.h)
+        src/drillChartView.cpp src/drillChartView.h)
 
 find_package(Qt5Charts)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")

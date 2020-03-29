@@ -60,4 +60,11 @@ void DrilldownChart::handleSliceClicked(QPieSlice *slice)
     changeSeries(drilldownSlice->drilldownSeries());
 }
 
+void DrilldownChart::handleRightClick() {
+    QPieSeries *drilldownSeries = static_cast<QPieSeries *>(m_currentSeries);
+    DrilldownSlice* x = static_cast<DrilldownSlice*>(drilldownSeries->slices()[0]);
+    changeSeries(x->drillupSeries());
+}
+
+
 #include "moc_drilldownchart.cpp"

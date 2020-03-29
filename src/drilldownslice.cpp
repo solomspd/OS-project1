@@ -33,7 +33,7 @@ QT_CHARTS_USE_NAMESPACE
 
 DrilldownSlice::DrilldownSlice(qreal value, QString prefix, QAbstractSeries *drilldownSeries, node *n, DrilldownChart *chart, QMainWindow* window)
         : m_drilldownSeries(drilldownSeries),
-          m_prefix(prefix) {
+          m_prefix(prefix){
     setValue(value);
     updateLabel();
     setLabelFont(QFont("Arial", 8));
@@ -48,13 +48,42 @@ DrilldownSlice::~DrilldownSlice() {
 
 }
 
-QAbstractSeries *DrilldownSlice::drilldownSeries() {
-    if(n->children.empty()) return m_drilldownSeries;
-    QPieSeries* mySeries = static_cast<QPieSeries *>(m_drilldownSeries);
+QAbstractSeries *DrilldownSlice::drillupSeries() {
+    node* N;
+    if(n->parent->parent==NULL) {
+        N = n->parent;
+    } else if (n->parent->parent!=NULL) {
+        N = n->parent->parent;
+    }
+    QPieSeries *mySeries = static_cast<QPieSeries *>(m_drilldownSeries);
     mySeries->clear();
-            foreach (node *childNode, n->children) {
-            QPieSeries *series = new QPieSeries(w);
-            series->setName(QT_STRINGIFY(childNode.name + " as a directory"));
+    mySeries->setName(QString(N->name.c_str()) + " as a directory");
+    QPieSeries *series = new QPieSeries(w);
+    series->setName(QString(N->name.c_str()) + " as a directory");
+            foreach (node *childNode, N->children) {
+            *series << new DrilldownSlice(childNode->size, childNode->name.c_str(), mySeries,
+                                          childNode, chart, w);
+
+            QObject::connect(series, SIGNAL(clicked(QPieSlice * )), chart, SLOT(handleSliceClicked(QPieSlice * )));
+
+            (*mySeries) << new DrilldownSlice(series->sum(), childNode->name.c_str(), series, childNode, chart, w);
+        }
+    return m_drilldownSeries;
+}
+
+QAbstractSeries *DrilldownSlice::drilldownSeries() {
+    node* N;
+    if(n->children.empty()) {
+        N = n->parent;
+    } else {
+        N = n;
+    }
+    QPieSeries *mySeries = static_cast<QPieSeries *>(m_drilldownSeries);
+    mySeries->clear();
+    mySeries->setName(QString(N->name.c_str()) + " as a directory");
+    QPieSeries *series = new QPieSeries(w);
+    series->setName(QString(N->name.c_str()) + " as a directory");
+            foreach (node *childNode, N->children) {
             *series << new DrilldownSlice(childNode->size, childNode->name.c_str(), mySeries,
                                           childNode, chart, w);
 

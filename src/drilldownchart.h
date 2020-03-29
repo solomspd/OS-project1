@@ -48,6 +48,7 @@ public:
 
 public Q_SLOTS:
     void handleSliceClicked(QPieSlice *slice);
+    void handleRightClick();
 
 private:
     QAbstractSeries *m_currentSeries;

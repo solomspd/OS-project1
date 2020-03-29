@@ -49,6 +49,8 @@ public:
     DrilldownSlice(qreal value, QString prefix, QAbstractSeries *drilldownSeries, node* n, DrilldownChart *, QMainWindow*);
     virtual ~DrilldownSlice();
     QAbstractSeries *drilldownSeries();
+    QAbstractSeries *drillupSeries();
+
 
 public Q_SLOTS:
     void updateLabel();
