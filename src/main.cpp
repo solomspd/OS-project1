@@ -73,9 +73,10 @@ int main(int argc, char *argv[])
 	for (int j=0; j<X.children.size();j++)
 		sizes << X.children[j]->size;
 
-	QPieSeries *series = new QPieSeries(&window);
-	series->setName(QString(X.name.c_str()) + " as a directory");
+
 			foreach (node* childNode, childrenNodes) {
+			QPieSeries *series = new QPieSeries(&window);
+			series->setName(QString(X.name.c_str()) + " as a directory");
 
 			*series << new DrilldownSlice(childNode->size, childNode->name.c_str(), mySeries, childNode, chart, &window);
 

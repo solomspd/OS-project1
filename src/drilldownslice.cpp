@@ -58,9 +58,9 @@ QAbstractSeries *DrilldownSlice::drillupSeries() {
     QPieSeries *mySeries = static_cast<QPieSeries *>(m_drilldownSeries);
     mySeries->clear();
     mySeries->setName(QString(N->name.c_str()) + " as a directory");
-    QPieSeries *series = new QPieSeries(w);
-    series->setName(QString(N->name.c_str()) + " as a directory");
             foreach (node *childNode, N->children) {
+            QPieSeries *series = new QPieSeries(w);
+            series->setName(QString(N->name.c_str()) + " as a directory");
             *series << new DrilldownSlice(childNode->size, childNode->name.c_str(), mySeries,
                                           childNode, chart, w);
 
@@ -81,9 +81,9 @@ QAbstractSeries *DrilldownSlice::drilldownSeries() {
     QPieSeries *mySeries = static_cast<QPieSeries *>(m_drilldownSeries);
     mySeries->clear();
     mySeries->setName(QString(N->name.c_str()) + " as a directory");
-    QPieSeries *series = new QPieSeries(w);
-    series->setName(QString(N->name.c_str()) + " as a directory");
             foreach (node *childNode, N->children) {
+            QPieSeries *series = new QPieSeries(w);
+            series->setName(QString(N->name.c_str()) + " as a directory");
             *series << new DrilldownSlice(childNode->size, childNode->name.c_str(), mySeries,
                                           childNode, chart, w);
 
