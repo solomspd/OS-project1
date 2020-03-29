@@ -32,6 +32,9 @@
 #include <QtCharts/QPieSlice>
 #include <QtCharts/QPieSeries>
 #include <QtWidgets/QMainWindow>
+
+#include <QtMath>
+
 #include "node.h"
 #include "drilldownchart.h"
 

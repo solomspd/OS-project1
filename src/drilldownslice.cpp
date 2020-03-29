@@ -94,11 +94,39 @@ QAbstractSeries *DrilldownSlice::drilldownSeries() {
     return m_drilldownSeries;
 }
 
+int length(qreal in){
+    int count = 0;
+    while (qint64(in) != 0) {
+        count++;
+        in /= 10;
+    }
+    return count;
+}
+
 void DrilldownSlice::updateLabel() {
     QString label = m_prefix;
     label += ", ";
-    label += QString::number(this->value());
-    label += "B, ";
+    qreal num = this->value();
+    int c = length(num);
+    std::string l;
+    if (c < 4) {
+        l = "B, ";
+    } else if (c < 7) {
+        l = "K, ";
+        num /= 1000;
+    } else if (c < 10) {
+        l = "M, ";
+        num /= std::pow(1000,2);
+    } else if (c < 13) {
+        l = "G, ";
+        num /= std::pow(1000,3);
+    } else if (c < 16) {
+        l = "T, ";
+        num /= std::pow(1000,4);
+    }
+
+    label += QString::number(num);
+    label += l.c_str();
     label += QString::number(this->percentage() * 100, 'f', 1);
     label += "%";
     setLabel(label);
